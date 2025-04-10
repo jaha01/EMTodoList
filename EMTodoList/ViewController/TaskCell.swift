@@ -57,12 +57,12 @@ class TaskCell: UITableViewCell {
     
     // MARK - Public properties
 
-    func configure(with task: Task) {
-        checkCircle.image = UIImage(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-        titleLabel.attributedText = task.isCompleted ? task.title.strikethrough() : NSAttributedString(string: task.title)
-        titleLabel.textColor = task.isCompleted ? .gray : .white
-        descriptionLabel.text = task.description
-        dateLabel.text = task.date
+    func configure(with task: TodoItem) {
+        checkCircle.image = UIImage(systemName: task.completed ? "checkmark.circle.fill" : "circle")
+        titleLabel.attributedText = task.completed ? task.todo.strikethrough() : NSAttributedString(string: task.todo)
+        titleLabel.textColor = task.completed ? .gray : .white
+        descriptionLabel.text = "descriptionLabel"//task.description
+        dateLabel.text = "dateLabel"//task.date
     }
 
     // MARK: - Private properties

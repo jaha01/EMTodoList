@@ -8,7 +8,7 @@
 import UIKit
 
 protocol InteractorProtocol {
-
+    func load()
 }
 
 final class Interactor: InteractorProtocol {
@@ -17,5 +17,26 @@ final class Interactor: InteractorProtocol {
     
     var presenter: PresenterProtocol!
     var router: Router!
+    var networkService: NetworkManagerProtocol!
     
+    init(networkService: NetworkManagerProtocol) {
+        self.networkService = networkService
+    }
+    
+    // MARK: - Public methods
+    
+    func load() {
+        networkService.request { [weak self] result in
+            switch result {
+            case .success(let session):
+                self?.presenter.prepareTasks(tasks: session.todos, tasksCount: session.todos.count)
+            case .failure(_):
+                print("ERROR")
+            }
+        }
+    }
+    
+    func goToTaskInfo() {
+        
+    }
 }

@@ -7,14 +7,8 @@
 
 import UIKit
 
-struct Task {
-    let title: String
-    let description: String
-    let date: String
-    var isCompleted: Bool
-}
-
 protocol ViewControllerProtocol: AnyObject {
+    func showTasks(tasks: [TodoItem], tasksCount: Int)
 }
 
 final class ViewController: UIViewController, ViewControllerProtocol, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
@@ -23,16 +17,10 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
     
     var interactor: InteractorProtocol!
     
-    let tasks: [Task] = [
-        Task(title: "Работа над проектом", description: "Выделить время для работы над проектом на работе. Сфокусироваться на выполнении важн...", date: "09/10/24", isCompleted: true),
-        Task(title: "Уборка в квартире", description: "Провести генеральную уборку в квартире", date: "02/10/24", isCompleted: false),
-        Task(title: "Вечерний отдых", description: "Найти время для расслабления перед сном: посмотреть фильм или послушать музыку", date: "02/10/24", isCompleted: false),
-        Task(title: "Работа над проектом", description: "Выделить время для работы над проектом на работе. Сфокусироваться на выполнении важн...", date: "09/10/24", isCompleted: true),
-        Task(title: "Вечерний отдых", description: "Найти время для расслабления перед сном: посмотреть фильм или послушать музыку", date: "02/10/24", isCompleted: false),
-        Task(title: "Зарядка утром", description: "", date: "—", isCompleted: false)
-    ]
-    
     // MARK: - Private properties
+    
+    private var tasks = [TodoItem]()
+    private let taskCell = "TaskCell"
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -40,7 +28,7 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
+        tableView.register(TaskCell.self, forCellReuseIdentifier: taskCell)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = UIColor.gray
@@ -67,7 +55,6 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         
     private let tasksCountLabel: UILabel = {
         let tasksCountLabel = UILabel()
-        tasksCountLabel.text = "7 Задач"
         tasksCountLabel.textColor = .white
         tasksCountLabel.font = UIFont.systemFont(ofSize: 16)
         tasksCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -92,11 +79,21 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         navigationController?.navigationBar.largeTitleTextAttributes = largeTitleAttributes
         
         setup()
-
+        interactor.load()
+    }
+    
+    // MARK: - Public properties
+    
+    func showTasks(tasks: [TodoItem], tasksCount: Int) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            self.tasks = tasks
+            self.tableView.reloadData()
+            self.tasksCountLabel.text = "\(tasksCount) Задач"
+        }
     }
     
     private func setup() {
-        
         view.addSubview(searchBar)
         view.addSubview(tableView)
         view.addSubview(bottomBar)
@@ -126,7 +123,6 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         ])
     }
 
-
     // MARK: - TableView
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,12 +131,13 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? TaskCell else {
-            return UITableViewCell()
-        }
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: taskCell, for: indexPath) as! TaskCell
         cell.configure(with: tasks[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

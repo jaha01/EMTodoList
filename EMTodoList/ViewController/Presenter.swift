@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PresenterProtocol {
-    
+    func prepareTasks(tasks: [TodoItem], tasksCount: Int)
 }
 
 final class Presenter: PresenterProtocol {
@@ -16,5 +16,10 @@ final class Presenter: PresenterProtocol {
     // MARK: - Public properties
    
     var viewController: ViewControllerProtocol!
+ 
+    // MARK: - Public properties
     
+    func prepareTasks(tasks: [TodoItem], tasksCount: Int) {
+        viewController.showTasks(tasks: tasks, tasksCount: tasksCount)
+    }
 }

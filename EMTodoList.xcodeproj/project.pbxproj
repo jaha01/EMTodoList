@@ -13,6 +13,11 @@
 		44793E2D2DA6D23B00EAF77C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44793E2B2DA6D23B00EAF77C /* Main.storyboard */; };
 		44793E2F2DA6D23F00EAF77C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44793E2E2DA6D23F00EAF77C /* Assets.xcassets */; };
 		44793E322DA6D23F00EAF77C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44793E302DA6D23F00EAF77C /* LaunchScreen.storyboard */; };
+		44793E3A2DA6D89700EAF77C /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E392DA6D89700EAF77C /* TaskCell.swift */; };
+		44793E3C2DA6FD3100EAF77C /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E3B2DA6FD3100EAF77C /* Interactor.swift */; };
+		44793E3E2DA6FD3900EAF77C /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E3D2DA6FD3900EAF77C /* Presenter.swift */; };
+		44793E402DA6FD4700EAF77C /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E3F2DA6FD4700EAF77C /* Router.swift */; };
+		44793E432DA6FE6B00EAF77C /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E422DA6FE6B00EAF77C /* Builder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		44793E2E2DA6D23F00EAF77C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44793E312DA6D23F00EAF77C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44793E332DA6D23F00EAF77C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44793E392DA6D89700EAF77C /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		44793E3B2DA6FD3100EAF77C /* Interactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
+		44793E3D2DA6FD3900EAF77C /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		44793E3F2DA6FD4700EAF77C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		44793E422DA6FE6B00EAF77C /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +68,26 @@
 			children = (
 				44793E252DA6D23B00EAF77C /* AppDelegate.swift */,
 				44793E272DA6D23B00EAF77C /* SceneDelegate.swift */,
-				44793E292DA6D23B00EAF77C /* ViewController.swift */,
+				44793E412DA6FD5F00EAF77C /* ViewController */,
 				44793E2B2DA6D23B00EAF77C /* Main.storyboard */,
 				44793E2E2DA6D23F00EAF77C /* Assets.xcassets */,
 				44793E302DA6D23F00EAF77C /* LaunchScreen.storyboard */,
 				44793E332DA6D23F00EAF77C /* Info.plist */,
 			);
 			path = EMTodoList;
+			sourceTree = "<group>";
+		};
+		44793E412DA6FD5F00EAF77C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				44793E292DA6D23B00EAF77C /* ViewController.swift */,
+				44793E3B2DA6FD3100EAF77C /* Interactor.swift */,
+				44793E3D2DA6FD3900EAF77C /* Presenter.swift */,
+				44793E3F2DA6FD4700EAF77C /* Router.swift */,
+				44793E422DA6FE6B00EAF77C /* Builder.swift */,
+				44793E392DA6D89700EAF77C /* TaskCell.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44793E3E2DA6FD3900EAF77C /* Presenter.swift in Sources */,
+				44793E3A2DA6D89700EAF77C /* TaskCell.swift in Sources */,
 				44793E2A2DA6D23B00EAF77C /* ViewController.swift in Sources */,
+				44793E402DA6FD4700EAF77C /* Router.swift in Sources */,
+				44793E3C2DA6FD3100EAF77C /* Interactor.swift in Sources */,
 				44793E262DA6D23B00EAF77C /* AppDelegate.swift in Sources */,
 				44793E282DA6D23B00EAF77C /* SceneDelegate.swift in Sources */,
+				44793E432DA6FE6B00EAF77C /* Builder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

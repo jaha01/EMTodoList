@@ -14,13 +14,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
+//        if  windowsScene == scene as? UIWindowScene {
+//                   let statusBarAppearance = UIView.appearance(whenContainedInInstancesOf: [UIWindow.self])
+//                       statusBarAppearance.tintColor = .white
+//                   }
         
         let window = UIWindow(windowScene: windowsScene)
 
-        let navigationController = UINavigationController(rootViewController: ViewController())
+        let navigationController = UINavigationController(rootViewController: Builder().build())
         window.rootViewController = navigationController
         self.window = window
         self.window?.makeKeyAndVisible()
+        
+//        if let topController = window.rootViewController as? UIViewController {
+//                topController.setNeedsStatusBarAppearanceUpdate()
+//            }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

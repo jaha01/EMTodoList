@@ -11,11 +11,18 @@ class TaskCell: UITableViewCell {
     
     // MARK: - Private properties
     
-    private let checkCircle: UIImageView = {
-        let checkCircle = UIImageView()
-        checkCircle.tintColor = .yellow
-        checkCircle.translatesAutoresizingMaskIntoConstraints = false
-        return checkCircle
+    var onCheckTapped: (() -> Void)?
+
+    private let checkCircle: UIButton = {
+        let button = UIButton(type: .custom)
+        button.tintColor = .yellow
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentMode = .scaleAspectFit
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(checkTapped), for: .touchUpInside)
+        button.imageView?.contentMode = .scaleAspectFit
+        
+        return button
     }()
     
     private let titleLabel: UILabel = {
@@ -43,14 +50,18 @@ class TaskCell: UITableViewCell {
         return dateLabel
     }()
     
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .black
         selectionStyle = .none
         setup()
     }
-
+    
+    @objc private func checkTapped() {
+        onCheckTapped?()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,13 +69,16 @@ class TaskCell: UITableViewCell {
     // MARK - Public properties
 
     func configure(with task: Task) {
-        checkCircle.image = UIImage(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+        let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
+        let image = UIImage(systemName: task.completed ? "checkmark.circle.fill" : "circle", withConfiguration: config)
+            checkCircle.setImage(image, for: .normal)
+        checkCircle.image = image
         titleLabel.attributedText = task.isCompleted ? task.title?.strikethrough() : NSAttributedString(string: task.title ?? "")
         titleLabel.textColor = task.isCompleted ? .gray : .white
         descriptionLabel.text = task.taskDescription
         dateLabel.text = formatDateToString(task.date)
     }
-
+    
     // MARK: - Private properties
     
     private func formatDateToString(_ date: Date?) -> String {
@@ -87,24 +101,25 @@ class TaskCell: UITableViewCell {
         contentView.addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            checkCircle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            checkCircle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            checkCircle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            checkCircle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             checkCircle.widthAnchor.constraint(equalToConstant: 32),
             checkCircle.heightAnchor.constraint(equalToConstant: 32),
+//            checkCircle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            titleLabel.leadingAnchor.constraint(equalTo: checkCircle.trailingAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: checkCircle.trailingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-
+            
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-
+            
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 4),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
-
+        
     }
     
 }

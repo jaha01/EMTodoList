@@ -10,6 +10,7 @@ import CoreData
 
 protocol InteractorProtocol {
     func load()
+    func goToTaskInfo(task: TodoItem)
     func loadCoreData()
     func saveTask(task: Task)
 }
@@ -53,6 +54,11 @@ final class Interactor: InteractorProtocol {
         }
     }
     
+
+    func goToTaskInfo(task: TodoItem) {
+        router.goToTaskInfo(task: task)
+    }
+  
     func loadCoreData() {
         coreData.fetchTodos { [weak self] result in
             guard let self = self else {return}
@@ -77,5 +83,6 @@ final class Interactor: InteractorProtocol {
         
         coreData.saveTodo(item: task)
         loadCoreData()
-    }
+
+    }   
 }

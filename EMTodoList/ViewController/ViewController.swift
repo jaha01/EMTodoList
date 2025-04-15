@@ -11,7 +11,7 @@ protocol ViewControllerProtocol: AnyObject {
     func showTasks(tasks: [Task], tasksCount: Int)
 }
 
-final class ViewController: UIViewController, ViewControllerProtocol, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+final class ViewController: UIViewController, ViewControllerProtocol, UISearchBarDelegate {
     
     // MARK: - Public Properties
     
@@ -94,6 +94,8 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         }
     }
     
+    // MARK: - Private properties
+    
     private func setup() {
         view.addSubview(searchBar)
         view.addSubview(tableView)
@@ -136,7 +138,6 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         }
 
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
-
         alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] _ in
             guard let self = self else {return}
             
@@ -156,14 +157,17 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
                rootVC.present(alert, animated: true, completion: nil)
         }
     }
-    
-    private func getCurrentFormattedDate() -> String {
+  
+     private func getCurrentFormattedDate() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yy"
         return formatter.string(from: Date())
     }
-    
-    // MARK: - TableView
+
+}
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasks.count
@@ -173,11 +177,17 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
 
         let cell = tableView.dequeueReusableCell(withIdentifier: taskCell, for: indexPath) as! TaskCell
         cell.configure(with: tasks[indexPath.row])
+        
+        cell.onCheckTapped = { [weak self] in
+                guard let self = self else { return }
+                self.tasks[indexPath.row].completed.toggle()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        interactor.goToTaskInfo(task: tasks[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

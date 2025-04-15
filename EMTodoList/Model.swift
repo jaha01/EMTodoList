@@ -17,9 +17,10 @@ struct TodoResponse: Codable {
 struct TodoItem: Codable {
     let id: Int
     let todo: String
-    let completed: Bool
+    var completed: Bool
     let userId: Int
 }
+
 
 struct Task: Codable { // +
     var id: Int16

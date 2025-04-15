@@ -21,10 +21,15 @@
 		44793E472DA7D9EE00EAF77C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E462DA7D9EE00EAF77C /* NetworkManager.swift */; };
 		44793E492DA7D9FA00EAF77C /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E482DA7D9FA00EAF77C /* NetworkConfig.swift */; };
 		44793E4B2DA7DB8B00EAF77C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E4A2DA7DB8B00EAF77C /* Model.swift */; };
+		44793E4F2DA867F900EAF77C /* TaskInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */; };
+		44793E512DA8687F00EAF77C /* TaskInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E502DA8687F00EAF77C /* TaskInfoInteractor.swift */; };
+		44793E532DA8688800EAF77C /* TaskInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */; };
+		44793E552DA8689E00EAF77C /* TaskInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E542DA8689E00EAF77C /* TaskInfoBuilder.swift */; };
 		44793E592DAC573E00EAF77C /* ToDoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44793E572DAC573E00EAF77C /* ToDoModel.xcdatamodeld */; };
 		44793E5B2DAC588E00EAF77C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5A2DAC588E00EAF77C /* CoreDataManager.swift */; };
 		44793E5E2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */; };
 		44793E5F2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,10 +49,15 @@
 		44793E462DA7D9EE00EAF77C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		44793E482DA7D9FA00EAF77C /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 		44793E4A2DA7DB8B00EAF77C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewController.swift; sourceTree = "<group>"; };
+		44793E502DA8687F00EAF77C /* TaskInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoInteractor.swift; sourceTree = "<group>"; };
+		44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoPresenter.swift; sourceTree = "<group>"; };
+		44793E542DA8689E00EAF77C /* TaskInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoBuilder.swift; sourceTree = "<group>"; };
 		44793E582DAC573E00EAF77C /* ToDoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoModel.xcdatamodel; sourceTree = "<group>"; };
 		44793E5A2DAC588E00EAF77C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +101,7 @@
 				44793E5A2DAC588E00EAF77C /* CoreDataManager.swift */,
 				44793E412DA6FD5F00EAF77C /* ViewController */,
 				44793E4A2DA7DB8B00EAF77C /* Model.swift */,
+				44793E562DA868DF00EAF77C /* TaskInfo */,
 				44793E2E2DA6D23F00EAF77C /* Assets.xcassets */,
 				44793E302DA6D23F00EAF77C /* LaunchScreen.storyboard */,
 				44793E332DA6D23F00EAF77C /* Info.plist */,
@@ -109,6 +120,17 @@
 				44793E392DA6D89700EAF77C /* TaskCell.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		44793E562DA868DF00EAF77C /* TaskInfo */ = {
+			isa = PBXGroup;
+			children = (
+				44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */,
+				44793E502DA8687F00EAF77C /* TaskInfoInteractor.swift */,
+				44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */,
+				44793E542DA8689E00EAF77C /* TaskInfoBuilder.swift */,
+			);
+			path = TaskInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,9 +210,13 @@
 				44793E4B2DA7DB8B00EAF77C /* Model.swift in Sources */,
 				44793E5B2DAC588E00EAF77C /* CoreDataManager.swift in Sources */,
 				44793E472DA7D9EE00EAF77C /* NetworkManager.swift in Sources */,
+				44793E512DA8687F00EAF77C /* TaskInfoInteractor.swift in Sources */,
+				44793E552DA8689E00EAF77C /* TaskInfoBuilder.swift in Sources */,
 				44793E3A2DA6D89700EAF77C /* TaskCell.swift in Sources */,
 				44793E2A2DA6D23B00EAF77C /* ViewController.swift in Sources */,
 				44793E402DA6FD4700EAF77C /* Router.swift in Sources */,
+				44793E532DA8688800EAF77C /* TaskInfoPresenter.swift in Sources */,
+				44793E4F2DA867F900EAF77C /* TaskInfoViewController.swift in Sources */,
 				44793E3C2DA6FD3100EAF77C /* Interactor.swift in Sources */,
 				44793E592DAC573E00EAF77C /* ToDoModel.xcdatamodeld in Sources */,
 				44793E5F2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift in Sources */,

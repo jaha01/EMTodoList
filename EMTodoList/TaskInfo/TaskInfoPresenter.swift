@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TaskInfoPresenterProtocol {
-    func prepareTask(task: TodoItem)
+    func prepareTask(task: Task)
 }
 
 final class TaskInfoPresenter: TaskInfoPresenterProtocol {
@@ -19,7 +19,7 @@ final class TaskInfoPresenter: TaskInfoPresenterProtocol {
     
     // MARK: - Public methods
     
-    func prepareTask(task: TodoItem) {
+    func prepareTask(task: Task) {
         viewController.showTask(task: task)
     }
 }

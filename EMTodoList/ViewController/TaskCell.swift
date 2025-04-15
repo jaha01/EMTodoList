@@ -12,7 +12,7 @@ class TaskCell: UITableViewCell {
     // MARK: - Private properties
     
     var onCheckTapped: (() -> Void)?
-
+    
     private let checkCircle: UIButton = {
         let button = UIButton(type: .custom)
         button.tintColor = .yellow
@@ -67,12 +67,11 @@ class TaskCell: UITableViewCell {
     }
     
     // MARK - Public properties
-
+    
     func configure(with task: Task) {
         let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
-        let image = UIImage(systemName: task.completed ? "checkmark.circle.fill" : "circle", withConfiguration: config)
-            checkCircle.setImage(image, for: .normal)
-        checkCircle.image = image
+        let image = UIImage(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle", withConfiguration: config)
+        checkCircle.setImage(image, for: .normal)
         titleLabel.attributedText = task.isCompleted ? task.title?.strikethrough() : NSAttributedString(string: task.title ?? "")
         titleLabel.textColor = task.isCompleted ? .gray : .white
         descriptionLabel.text = task.taskDescription
@@ -105,7 +104,7 @@ class TaskCell: UITableViewCell {
             checkCircle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             checkCircle.widthAnchor.constraint(equalToConstant: 32),
             checkCircle.heightAnchor.constraint(equalToConstant: 32),
-//            checkCircle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            //            checkCircle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: checkCircle.trailingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),

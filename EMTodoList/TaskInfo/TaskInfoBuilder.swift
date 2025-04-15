@@ -9,7 +9,7 @@ import UIKit
 
 final class TaskInfoBuilder {
     
-    func build(task: TodoItem) -> UIViewController {
+    func build(task: Task) -> UIViewController {
         let controller = TaskInfoViewController()
         let interactor = TaskInfoInteractor()
         let presenter = TaskInfoPresenter()

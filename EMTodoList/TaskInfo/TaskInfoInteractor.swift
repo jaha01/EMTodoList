@@ -19,7 +19,7 @@ final class TaskInfoInteractor: TaskInfoInteractorProtocol {
     
     // MARK: - Private properties
     
-    var task: TodoItem!
+    var task: Task!
     
     func onLoad() {
         presenter.prepareTask(task: task)

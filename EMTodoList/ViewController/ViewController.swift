@@ -180,7 +180,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.onCheckTapped = { [weak self] in
                 guard let self = self else { return }
-                self.tasks[indexPath.row].completed.toggle()
+                self.tasks[indexPath.row].isCompleted.toggle()
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         return cell

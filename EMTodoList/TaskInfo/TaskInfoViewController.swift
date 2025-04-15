@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskInfoViewControllerProtocol: AnyObject {
-    func showTask(task: TodoItem)
+    func showTask(task: Task)
 }
 
 final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProtocol {
@@ -67,10 +67,10 @@ final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProt
 
     // MARK: - Public methods
     
-    func showTask(task: TodoItem) {
+    func showTask(task: Task) {
         titleTextField.text = ""
         dateTextField.text = ""
-        bodyTextView.text = task.todo
+        bodyTextView.text = task.taskDescription
     }
     
     // MARK: - Private methods

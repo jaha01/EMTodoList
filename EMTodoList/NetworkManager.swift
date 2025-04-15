@@ -11,7 +11,7 @@ protocol NetworkManagerProtocol {
     func request(completion: @escaping(Result<TodoResponse,Error>)->Void)
 }
 
-class NetworkManager : NSObject, NetworkManagerProtocol {
+final class NetworkManager : NSObject, NetworkManagerProtocol {
     private var networkConfiguration = NetworkConfig()
     private let urlSession = URLSession(configuration: URLSessionConfiguration.default)
 

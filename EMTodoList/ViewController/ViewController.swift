@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ViewControllerProtocol: AnyObject {
-    func showTasks(tasks: [TodoItem], tasksCount: Int)
+    func showTasks(tasks: [Task], tasksCount: Int)
 }
 
 final class ViewController: UIViewController, ViewControllerProtocol, UISearchBarDelegate {
@@ -19,7 +19,7 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
     
     // MARK: - Private properties
     
-    private var tasks = [TodoItem]()
+    private var tasks = [Task]()
     private let taskCell = "TaskCell"
     
     private lazy var tableView: UITableView = {
@@ -66,7 +66,7 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
         addButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         addButton.tintColor = .yellow
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(createTask), for: .touchUpInside)
         return addButton
     }()
     
@@ -85,7 +85,7 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
     
     // MARK: - Public properties
     
-    func showTasks(tasks: [TodoItem], tasksCount: Int) {
+    func showTasks(tasks: [Task], tasksCount: Int) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             self.tasks = tasks
@@ -95,10 +95,6 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
     }
     
     // MARK: - Private properties
-    
-    @objc private func addTask() {
-        presentTwoFieldAlert()
-    }
     
     private func setup() {
         view.addSubview(searchBar)
@@ -129,9 +125,8 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
             addButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -20)
         ])
     }
-
     
-    private func presentTwoFieldAlert() {
+    @objc private func createTask() {
         let alert = UIAlertController(title: "Новая задача", message: "", preferredStyle: .alert)
 
         alert.addTextField { textField in
@@ -143,13 +138,17 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
         }
 
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
-
-        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] _ in
+            guard let self = self else {return}
+            
             let titleText = alert.textFields?[0].text ?? ""
             let descriptionText = alert.textFields?[1].text ?? ""
-            
-            print("Заголовок: \(titleText), Описание: \(descriptionText)")
-            
+
+            self.interactor.saveTask(task: Task(id: 0,
+                                                title: titleText,
+                                                taskDescription: descriptionText,
+                                                isCompleted: false,
+                                                date: Date()))
         }))
 
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -157,6 +156,12 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
            let rootVC = window.rootViewController {
                rootVC.present(alert, animated: true, completion: nil)
         }
+    }
+  
+     private func getCurrentFormattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        return formatter.string(from: Date())
     }
 
 }

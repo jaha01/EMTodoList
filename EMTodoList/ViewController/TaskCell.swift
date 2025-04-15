@@ -67,18 +67,31 @@ class TaskCell: UITableViewCell {
     }
     
     // MARK - Public properties
-    
-    func configure(with task: TodoItem) {
+
+    func configure(with task: Task) {
         let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold)
         let image = UIImage(systemName: task.completed ? "checkmark.circle.fill" : "circle", withConfiguration: config)
             checkCircle.setImage(image, for: .normal)
-        titleLabel.attributedText = task.completed ? task.todo.strikethrough() : NSAttributedString(string: task.todo)
-        titleLabel.textColor = task.completed ? .gray : .white
-        descriptionLabel.text = "descriptionLabel"//task.description
-        dateLabel.text = "dateLabel"//task.date
+        checkCircle.image = image
+        titleLabel.attributedText = task.isCompleted ? task.title?.strikethrough() : NSAttributedString(string: task.title ?? "")
+        titleLabel.textColor = task.isCompleted ? .gray : .white
+        descriptionLabel.text = task.taskDescription
+        dateLabel.text = formatDateToString(task.date)
     }
     
     // MARK: - Private properties
+    
+    private func formatDateToString(_ date: Date?) -> String {
+        if let safeDate = date {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM/yy"
+            formatter.locale = .current
+            formatter.timeZone = .current
+            return formatter.string(from: safeDate)
+        } else {
+            return ""
+        }
+    }
     
     private func setup() {
         

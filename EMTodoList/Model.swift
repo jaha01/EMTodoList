@@ -21,13 +21,16 @@ struct TodoItem: Codable {
     let userId: Int
 }
 
-struct Task: Codable {
-    var title: String
-    var todoItem: TodoItem
-    var date: Date
+
+struct Task: Codable { // +
+    var id: Int16
+    var title: String?
+    var taskDescription: String?
+    var isCompleted: Bool
+    var date: Date?
 }
 
-class CustomError: Error {
+class CustomError: Error { // +
     var message: String
     init(message: String) {
         self.message = message

@@ -9,6 +9,7 @@ import UIKit
 
 protocol InteractorProtocol {
     func load()
+    func goToTaskInfo(task: TodoItem)
 }
 
 final class Interactor: InteractorProtocol {
@@ -36,7 +37,9 @@ final class Interactor: InteractorProtocol {
         }
     }
     
-    func goToTaskInfo() {
-        
+    func goToTaskInfo(task: TodoItem) {
+        router.goToTaskInfo(task: task)
     }
+    
+    
 }

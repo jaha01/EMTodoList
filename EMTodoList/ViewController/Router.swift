@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RouterProtocol {
-    func goToTaskInfo()
+    func goToTaskInfo(task: TodoItem)
 }
 
 final class Router: RouterProtocol {
@@ -17,11 +17,11 @@ final class Router: RouterProtocol {
     
     var viewController: UIViewController!
     
-    func goToTaskInfo() {
-//        guard let controller = viewController else { return }
-//        let paymentVC = PaymentBuilder().build(selectedSeats: selectedSeats)
-//        let nav = UINavigationController(rootViewController: paymentVC)
-//        nav.navigationBar.backgroundColor = .white
-//        controller.present(nav, animated: true, completion: nil)
+    // MARK: - Public properties
+    
+    func goToTaskInfo(task: TodoItem) {
+        guard let controller = viewController else { return }
+        let taskVC = TaskInfoBuilder().build(task: task)
+        controller.navigationController?.pushViewController(taskVC, animated: true)
     }
 }

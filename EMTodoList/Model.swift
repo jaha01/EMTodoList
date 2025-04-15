@@ -17,8 +17,14 @@ struct TodoResponse: Codable {
 struct TodoItem: Codable {
     let id: Int
     let todo: String
-    let completed: Bool
+    var completed: Bool
     let userId: Int
+}
+
+struct Task: Codable {
+    var title: String
+    var todoItem: TodoItem
+    var date: Date
 }
 
 class CustomError: Error {

@@ -11,7 +11,7 @@ protocol ViewControllerProtocol: AnyObject {
     func showTasks(tasks: [TodoItem], tasksCount: Int)
 }
 
-final class ViewController: UIViewController, ViewControllerProtocol, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+final class ViewController: UIViewController, ViewControllerProtocol, UISearchBarDelegate {
     
     // MARK: - Public Properties
     
@@ -66,6 +66,7 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         addButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         addButton.tintColor = .yellow
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
         return addButton
     }()
     
@@ -91,6 +92,12 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
             self.tableView.reloadData()
             self.tasksCountLabel.text = "\(tasksCount) Задач"
         }
+    }
+    
+    // MARK: - Private properties
+    
+    @objc private func addTask() {
+        presentTwoFieldAlert()
     }
     
     private func setup() {
@@ -123,7 +130,39 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
         ])
     }
 
-    // MARK: - TableView
+    
+    private func presentTwoFieldAlert() {
+        let alert = UIAlertController(title: "Новая задача", message: "", preferredStyle: .alert)
+
+        alert.addTextField { textField in
+            textField.placeholder = "Заголовок"
+        }
+
+        alert.addTextField { textField in
+            textField.placeholder = "Описание"
+        }
+
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+
+        alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { _ in
+            let titleText = alert.textFields?[0].text ?? ""
+            let descriptionText = alert.textFields?[1].text ?? ""
+            
+            print("Заголовок: \(titleText), Описание: \(descriptionText)")
+            
+        }))
+
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first(where: { $0.isKeyWindow }),
+           let rootVC = window.rootViewController {
+               rootVC.present(alert, animated: true, completion: nil)
+        }
+    }
+
+}
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasks.count
@@ -133,11 +172,17 @@ final class ViewController: UIViewController, ViewControllerProtocol, UITableVie
 
         let cell = tableView.dequeueReusableCell(withIdentifier: taskCell, for: indexPath) as! TaskCell
         cell.configure(with: tasks[indexPath.row])
+        
+        cell.onCheckTapped = { [weak self] in
+                guard let self = self else { return }
+                self.tasks[indexPath.row].completed.toggle()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        interactor.goToTaskInfo(task: tasks[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

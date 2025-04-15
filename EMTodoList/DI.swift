@@ -15,4 +15,8 @@ final class DI {
         return NetworkManager()
     }()
     
+    lazy var coreData: CoreDataManager = {
+        return CoreDataManager()
+    }()
+    
 }

@@ -11,7 +11,7 @@ final class Builder {
     
     func build() -> UIViewController {
         let controller = ViewController()
-        let interactor = Interactor(networkService: DI.shared.networkClient)
+        let interactor = Interactor(networkService: DI.shared.networkClient, coreData: DI.shared.coreData)
         let presenter = Presenter()
         let router = Router()
         

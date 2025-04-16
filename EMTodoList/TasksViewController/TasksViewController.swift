@@ -54,7 +54,7 @@ final class TasksViewController: UIViewController, TasksViewControllerProtocol {
         bottomBar.translatesAutoresizingMaskIntoConstraints = false
         return bottomBar
     }()
-        
+    
     private let tasksCountLabel: UILabel = {
         let tasksCountLabel = UILabel()
         tasksCountLabel.textColor = .white
@@ -131,53 +131,53 @@ final class TasksViewController: UIViewController, TasksViewControllerProtocol {
     
     @objc private func createTask() {
         let alert = UIAlertController(title: "Новая задача", message: "", preferredStyle: .alert)
-
+        
         alert.addTextField { textField in
             textField.placeholder = "Заголовок"
         }
-
+        
         alert.addTextField { textField in
             textField.placeholder = "Описание"
         }
-
+        
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Добавить", style: .default, handler: { [weak self] _ in
             guard let self = self else {return}
             
             let titleText = alert.textFields?[0].text ?? ""
             let descriptionText = alert.textFields?[1].text ?? ""
-
+            
             self.interactor.saveTask(task: Task(id: 0,
                                                 title: titleText,
                                                 taskDescription: descriptionText,
                                                 isCompleted: false,
                                                 date: Date()))
         }))
-
+        
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = scene.windows.first(where: { $0.isKeyWindow }),
            let rootVC = window.rootViewController {
-               rootVC.present(alert, animated: true, completion: nil)
+            rootVC.present(alert, animated: true, completion: nil)
         }
     }
 }
 
 
 extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasks.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: taskCell, for: indexPath) as! TaskCell
         cell.configure(with: tasks[indexPath.row])
         
         cell.onCheckTapped = { [weak self] in
             guard let self = self else { return }
             self.interactor.changeTaskStatus(self.tasks[indexPath.row].id)
-            }
+        }
         return cell
     }
     
@@ -189,11 +189,28 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
         return 100
     }
     
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            interactor.deleteTask(id: tasks[indexPath.row].id)
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath,
+                   point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let task = tasks[indexPath.row]
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            let edit = UIAction(title: "Редактировать", image: UIImage(systemName: "pencil")) { [weak self] _ in
+                guard let self = self else { return }
+                self.interactor.goToTaskInfo(task: task)
+            }
+            
+            let share = UIAction(title: "Поделиться", image: UIImage(systemName: "square.and.arrow.up")) { _ in
+                let activityVC = UIActivityViewController(activityItems: [task.title ?? "", task.taskDescription ?? ""], applicationActivities: nil)
+                self.present(activityVC, animated: true)
+            }
+            
+            let delete = UIAction(title: "Удалить", image: UIImage(systemName: "trash"), attributes: .destructive) { [weak self] _ in
+                guard let self = self else { return }
+                self.interactor.deleteTask(id: task.id)
+            }
+            
+            return UIMenu(title: "", children: [edit, share, delete])
         }
     }
 }

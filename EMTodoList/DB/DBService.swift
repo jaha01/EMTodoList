@@ -8,14 +8,17 @@
 import Foundation
 import CoreData
 
-protocol CoreDataProtocol {
+protocol DBProtocol {
     func fetchTodos(completion: @escaping(Result<[ToDoEntity],Error>)->Void)
     func saveTodo(item: Task)
     func getNextAvailableID() -> Int16
-    func deleteAllTodos()
+//    func deleteAllTodos()
+    func updateTodo(item: Task)
+    func deleteTodo(_ id: Int16)
+    func changeTaskStatus(_ id: Int16)
 }
 
-final class CoreDataManager: CoreDataProtocol {
+final class DBService: DBProtocol {
 
     let persistentContainer: NSPersistentContainer
 
@@ -71,7 +74,6 @@ final class CoreDataManager: CoreDataProtocol {
                 entity.isCompleted = item.isCompleted
                 entity.date = item.date
                 saveContext()
-                print("Задача с id \(item.id) обновлена")
             } else {
                 print("Задача с id \(item.id) не найдена для обновления")
             }
@@ -105,9 +107,8 @@ final class CoreDataManager: CoreDataProtocol {
         do {
             try context.execute(deleteRequest)
             try context.save()
-            print("✅ Все записи успешно удалены.")
         } catch {
-            print("❌ Ошибка при удалении всех записей: \(error)")
+            print("Ошибка при удалении всех записей: \(error)")
         }
     }
 
@@ -133,14 +134,37 @@ final class CoreDataManager: CoreDataProtocol {
                 entity.date = newTask.date
 
                 saveContext()
-                print("✅ Добавлена новая задача с id = \(item.id)")
-            } else {
-                print("⚠️ Задача с id = \(item.id) уже есть, пропускаем")
             }
         } catch {
-            print("❌ Ошибка при проверке существующей задачи: \(error.localizedDescription)")
+            print("Ошибка при проверке существующей задачи: \(error.localizedDescription)")
         }
     }
 
+    func deleteTodo(_ id: Int16) {
+        let context = context
+        let request: NSFetchRequest<ToDoEntity> = ToDoEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", id)
+
+        if let result = try? context.fetch(request).first {
+            context.delete(result)
+            saveContext()
+        }
+    }
+    
+    func changeTaskStatus(_ id: Int16) {
+        let context = context
+        let fetchRequest: NSFetchRequest<ToDoEntity> = ToDoEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+
+        do {
+            let existing = try context.fetch(fetchRequest)
+            if let entity = existing.first {
+                entity.isCompleted.toggle()
+                saveContext()
+            }
+        } catch {
+            print("Ошибка при обновлении задачи: \(error.localizedDescription)")
+        }
+    }
     
 }

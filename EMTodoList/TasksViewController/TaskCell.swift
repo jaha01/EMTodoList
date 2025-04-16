@@ -50,6 +50,13 @@ class TaskCell: UITableViewCell {
         return dateLabel
     }()
     
+    private static let formatter: DateFormatter  = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        formatter.locale = .current
+        formatter.timeZone = .current
+        return formatter
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -82,11 +89,7 @@ class TaskCell: UITableViewCell {
     
     private func formatDateToString(_ date: Date?) -> String {
         if let safeDate = date {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd/MM/yy"
-            formatter.locale = .current
-            formatter.timeZone = .current
-            return formatter.string(from: safeDate)
+            return TaskCell.formatter.string(from: safeDate)
         } else {
             return ""
         }
@@ -104,7 +107,6 @@ class TaskCell: UITableViewCell {
             checkCircle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             checkCircle.widthAnchor.constraint(equalToConstant: 32),
             checkCircle.heightAnchor.constraint(equalToConstant: 32),
-            //            checkCircle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             titleLabel.leadingAnchor.constraint(equalTo: checkCircle.trailingAnchor, constant: 12),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),

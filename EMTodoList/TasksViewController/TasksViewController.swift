@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol ViewControllerProtocol: AnyObject {
-    func showTasks(tasks: [Task], tasksCount: Int)
+protocol TasksViewControllerProtocol: AnyObject {
+    func showTasks(tasks: [Task])
 }
 
-final class ViewController: UIViewController, ViewControllerProtocol, UISearchBarDelegate {
+final class TasksViewController: UIViewController, TasksViewControllerProtocol, UISearchBarDelegate {
     
     // MARK: - Public Properties
     
-    var interactor: InteractorProtocol!
+    var interactor: TasksInteractorProtocol!
     
     // MARK: - Private properties
     
@@ -85,12 +85,12 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
     
     // MARK: - Public properties
     
-    func showTasks(tasks: [Task], tasksCount: Int) {
+    func showTasks(tasks: [Task]) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             self.tasks = tasks
             self.tableView.reloadData()
-            self.tasksCountLabel.text = "\(tasksCount) Задач"
+            self.tasksCountLabel.text = "\(tasks.count) Задач"
         }
     }
     
@@ -157,17 +157,10 @@ final class ViewController: UIViewController, ViewControllerProtocol, UISearchBa
                rootVC.present(alert, animated: true, completion: nil)
         }
     }
-  
-     private func getCurrentFormattedDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"
-        return formatter.string(from: Date())
-    }
-
 }
 
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasks.count
@@ -179,9 +172,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: tasks[indexPath.row])
         
         cell.onCheckTapped = { [weak self] in
-                guard let self = self else { return }
-                self.tasks[indexPath.row].isCompleted.toggle()
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            guard let self = self else { return }
+            self.interactor.changeTaskStatus(self.tasks[indexPath.row].id)
             }
         return cell
     }
@@ -192,5 +184,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            interactor.deleteTask(id: tasks[indexPath.row].id)
+        }
     }
 }

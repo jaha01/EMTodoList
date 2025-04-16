@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol NetworkManagerProtocol {
+protocol NetworkServiceProtocol {
     func request(completion: @escaping(Result<TodoResponse,Error>)->Void)
 }
 
-final class NetworkManager : NSObject, NetworkManagerProtocol {
+final class NetworkService : NSObject, NetworkServiceProtocol {
     private var networkConfiguration = NetworkConfig()
     private let urlSession = URLSession(configuration: URLSessionConfiguration.default)
 
@@ -27,7 +27,6 @@ final class NetworkManager : NSObject, NetworkManagerProtocol {
                 case 200..<400:
                     let jsonDecoder = JSONDecoder()
                     jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-//                    jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
                     
                     do {
                         let toDoList = try jsonDecoder.decode(TodoResponse.self, from: data)

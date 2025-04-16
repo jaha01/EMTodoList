@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class Builder {
+final class TasksBuilder {
     
     func build() -> UIViewController {
-        let controller = ViewController()
-        let interactor = Interactor(networkService: DI.shared.networkClient, coreData: DI.shared.coreData)
-        let presenter = Presenter()
-        let router = Router()
+        let controller = TasksViewController()
+        let interactor = TasksInteractor(networkService: DI.shared.networkClient, dBService: DI.shared.dBClient)
+        let presenter = TasksPresenter()
+        let router = TasksRouter()
         
         controller.interactor = interactor
         interactor.presenter = presenter

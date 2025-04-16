@@ -11,7 +11,7 @@ protocol TasksViewControllerProtocol: AnyObject {
     func showTasks(tasks: [Task])
 }
 
-final class TasksViewController: UIViewController, TasksViewControllerProtocol, UISearchBarDelegate {
+final class TasksViewController: UIViewController, TasksViewControllerProtocol {
     
     // MARK: - Public Properties
     
@@ -20,6 +20,7 @@ final class TasksViewController: UIViewController, TasksViewControllerProtocol, 
     // MARK: - Private properties
     
     private var tasks = [Task]()
+    private var allTasks = [Task]()
     private let taskCell = "TaskCell"
     
     private lazy var tableView: UITableView = {
@@ -42,6 +43,7 @@ final class TasksViewController: UIViewController, TasksViewControllerProtocol, 
         searchBar.barStyle = .black
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
+        searchBar.showsCancelButton = true
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
@@ -89,6 +91,7 @@ final class TasksViewController: UIViewController, TasksViewControllerProtocol, 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             self.tasks = tasks
+            self.allTasks = tasks
             self.tableView.reloadData()
             self.tasksCountLabel.text = "\(tasks.count) Задач"
         }
@@ -192,5 +195,18 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             interactor.deleteTask(id: tasks[indexPath.row].id)
         }
+    }
+}
+
+extension TasksViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        interactor.cancelSearch()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        interactor.search(searchText: searchText)
     }
 }

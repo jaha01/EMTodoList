@@ -27,6 +27,8 @@ final class TaskInfoInteractor: TaskInfoInteractorProtocol {
         self.task = task
         self.onCloseCompletion = onClose
     }
+
+    // MARK: - Public methods
     
     func onLoad() {
         presenter.prepareTask(task: task)

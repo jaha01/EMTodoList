@@ -12,7 +12,6 @@ protocol DBProtocol {
     func fetchTodos(completion: @escaping(Result<[ToDoEntity],Error>)->Void)
     func saveTodo(item: Task)
     func getNextAvailableID() -> Int16
-//    func deleteAllTodos()
     func updateTodo(item: Task)
     func deleteTodo(_ id: Int16)
     func changeTaskStatus(_ id: Int16)
@@ -97,18 +96,6 @@ final class DBService: DBProtocol {
         } catch {
             print("Failed to fetch max id: \(error)")
             return 1
-        }
-    }
-    
-    func deleteAllTodos() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = ToDoEntity.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            print("Ошибка при удалении всех записей: \(error)")
         }
     }
 

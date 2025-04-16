@@ -65,10 +65,6 @@ class TaskCell: UITableViewCell {
         setup()
     }
     
-    @objc private func checkTapped() {
-        onCheckTapped?()
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -87,6 +83,10 @@ class TaskCell: UITableViewCell {
     
     // MARK: - Private properties
     
+    @objc private func checkTapped() {
+        onCheckTapped?()
+    }
+    
     private func formatDateToString(_ date: Date?) -> String {
         if let safeDate = date {
             return TaskCell.formatter.string(from: safeDate)
@@ -96,7 +96,6 @@ class TaskCell: UITableViewCell {
     }
     
     private func setup() {
-        
         contentView.addSubview(checkCircle)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
@@ -120,19 +119,5 @@ class TaskCell: UITableViewCell {
             dateLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 4),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
-        
-    }
-    
-}
-
-// MARK: - Helper
-
-extension String {
-    func strikethrough() -> NSAttributedString {
-        let attributeString = NSMutableAttributedString(string: self)
-        attributeString.addAttribute(.strikethroughStyle,
-                                     value: NSUnderlineStyle.single.rawValue,
-                                     range: NSRange(location: 0, length: self.count))
-        return attributeString
     }
 }

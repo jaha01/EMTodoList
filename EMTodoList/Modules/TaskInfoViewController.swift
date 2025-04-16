@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TaskInfoViewControllerProtocol: AnyObject {
-    func showTask(task: Task)
+    func showTask(task: Task, formatedDate: String)
 }
 
 final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProtocol {
@@ -47,14 +47,6 @@ final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProt
          textView.translatesAutoresizingMaskIntoConstraints = false
          return textView
      }()
-
-    private let formatter: DateFormatter  = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"
-        formatter.locale = .current
-        formatter.timeZone = .current
-        return formatter
-    }()
     
      override func viewDidLoad() {
          super.viewDidLoad()
@@ -74,21 +66,13 @@ final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProt
 
     // MARK: - Public methods
     
-    func showTask(task: Task) {
+    func showTask(task: Task, formatedDate: String) {
         titleTextField.text = task.title
-        dateTextField.text = formatDateToString(task.date)
+        dateTextField.text = formatedDate
         bodyTextView.text = task.taskDescription
     }
     
     // MARK: - Private methods
-    
-    private func formatDateToString(_ date: Date?) -> String {
-        if let safeDate = date {
-            return formatter.string(from: safeDate)
-        } else {
-            return ""
-        }
-    }
     
      private func setupView() {
          view.backgroundColor = .black

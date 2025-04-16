@@ -16,6 +16,8 @@ protocol TasksInteractorProtocol {
     func editTask(task: Task)
     func deleteTask(id: Int16)
     func changeTaskStatus(_ id: Int16)
+    func search(searchText: String)
+    func cancelSearch()
 }
 
 final class TasksInteractor: TasksInteractorProtocol {
@@ -111,6 +113,38 @@ final class TasksInteractor: TasksInteractorProtocol {
         if let index = tasks.firstIndex(where: { $0.id == id }) {
             tasks[index].isCompleted.toggle()
         }
+        presenter.prepareTasks(tasks: self.tasks)
+    }
+    
+    func search(searchText: String) {
+        if searchText.isEmpty {
+            presenter.prepareTasks(tasks: self.tasks)
+        } else {
+            let filteredTasks = tasks.filter { task in
+                let title = task.title ?? ""
+                let desc = task.taskDescription ?? ""
+
+                let lowercasedSearch = searchText.lowercased()
+
+                let matchesTitleOrDesc = title.lowercased().contains(lowercasedSearch) ||
+                                         desc.lowercased().contains(lowercasedSearch)
+
+                let matchesCompletedStatus: Bool
+                if lowercasedSearch == "выполнено" || lowercasedSearch == "completed" {
+                    matchesCompletedStatus = task.isCompleted
+                } else if lowercasedSearch == "не выполнено" || lowercasedSearch == "not completed" {
+                    matchesCompletedStatus = !task.isCompleted
+                } else {
+                    matchesCompletedStatus = false
+                }
+
+                return matchesTitleOrDesc || matchesCompletedStatus
+            }
+            presenter.prepareTasks(tasks: filteredTasks)
+        }
+    }
+    
+    func cancelSearch() {
         presenter.prepareTasks(tasks: self.tasks)
     }
     

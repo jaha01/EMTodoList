@@ -11,7 +11,6 @@ import CoreData
 protocol TasksInteractorProtocol {
     func load()
     func goToTaskInfo(task: Task)
-    func loadDB()
     func saveTask(task: Task)
     func editTask(task: Task)
     func deleteTask(id: Int16)
@@ -63,26 +62,7 @@ final class TasksInteractor: TasksInteractorProtocol {
     
 
     func goToTaskInfo(task: Task) {
-        router.goToTaskInfo(task: task, onClose: updateTask)
-    }
-  
-    func loadDB() {
-        dBService.fetchTodos { [weak self] result in
-            guard let self = self else {return}
-            switch result {
-            case .success(let data):
-                self.tasks = data.map { entity in
-                    Task(id: entity.id,
-                         title: entity.title,
-                         taskDescription: entity.taskDescription,
-                         isCompleted: entity.isCompleted,
-                         date: entity.date)
-                }
-                self.presenter.prepareTasks(tasks: self.tasks)
-            case .failure(_):
-                print("Error")
-            }
-        }
+        router.goToTaskInfo(task: task, onClose: editTask)
     }
     
     func saveTask(task: Task) {
@@ -149,9 +129,23 @@ final class TasksInteractor: TasksInteractorProtocol {
     }
     
     // MARK: - Private methods
-    
-    private func updateTask(task: Task) {
-        print("110")
-        editTask(task: task)
+
+    private func loadDB() {
+        dBService.fetchTodos { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let data):
+                self.tasks = data.map { entity in
+                    Task(id: entity.id,
+                         title: entity.title,
+                         taskDescription: entity.taskDescription,
+                         isCompleted: entity.isCompleted,
+                         date: entity.date)
+                }
+                self.presenter.prepareTasks(tasks: self.tasks)
+            case .failure(_):
+                print("Error")
+            }
+        }
     }
 }

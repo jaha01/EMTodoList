@@ -20,8 +20,10 @@ final class TaskInfoInteractor: TaskInfoInteractorProtocol {
     
     // MARK: - Private properties
     
-    private var task: Task
+    private let task: Task
     private let onCloseCompletion: (Task) -> Void
+    
+    // MARK: - Init
     
     init(task: Task, onClose: @escaping ((Task) -> Void)) {
         self.task = task

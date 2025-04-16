@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  TodoResponse.swift
 //  EMTodoList
 //
 //  Created by Jahongir Anvarov on 10.04.2025.
@@ -12,11 +12,4 @@ struct TodoResponse: Codable {
     let total: Int
     let skip: Int
     let limit: Int
-}
-
-struct TodoItem: Codable {
-    let id: Int
-    let todo: String
-    var completed: Bool
-    let userId: Int
 }

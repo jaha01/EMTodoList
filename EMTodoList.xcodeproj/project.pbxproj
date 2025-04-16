@@ -20,7 +20,7 @@
 		44793E452DA7D9AB00EAF77C /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E442DA7D9AB00EAF77C /* DI.swift */; };
 		44793E472DA7D9EE00EAF77C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E462DA7D9EE00EAF77C /* NetworkService.swift */; };
 		44793E492DA7D9FA00EAF77C /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E482DA7D9FA00EAF77C /* NetworkConfig.swift */; };
-		44793E4B2DA7DB8B00EAF77C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E4A2DA7DB8B00EAF77C /* Model.swift */; };
+		44793E4B2DA7DB8B00EAF77C /* TodoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E4A2DA7DB8B00EAF77C /* TodoResponse.swift */; };
 		44793E4F2DA867F900EAF77C /* TaskInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */; };
 		44793E512DA8687F00EAF77C /* TaskInfoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E502DA8687F00EAF77C /* TaskInfoInteractor.swift */; };
 		44793E532DA8688800EAF77C /* TaskInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */; };
@@ -29,8 +29,10 @@
 		44793E5B2DAC588E00EAF77C /* DBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5A2DAC588E00EAF77C /* DBService.swift */; };
 		44793E5E2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */; };
 		44793E5F2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */; };
-		44793E612DAF73A400EAF77C /* DBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E602DAF73A300EAF77C /* DBModel.swift */; };
+		44793E612DAF73A400EAF77C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E602DAF73A300EAF77C /* Task.swift */; };
 		44793E632DAF745800EAF77C /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E622DAF745800EAF77C /* Errors.swift */; };
+		44793E672DAFF50700EAF77C /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E662DAFF50700EAF77C /* TodoItem.swift */; };
+		44793E6B2DAFF75500EAF77C /* String+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44793E6A2DAFF75500EAF77C /* String+UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +51,7 @@
 		44793E442DA7D9AB00EAF77C /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		44793E462DA7D9EE00EAF77C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		44793E482DA7D9FA00EAF77C /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
-		44793E4A2DA7DB8B00EAF77C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		44793E4A2DA7DB8B00EAF77C /* TodoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoResponse.swift; sourceTree = "<group>"; };
 		44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoViewController.swift; sourceTree = "<group>"; };
 		44793E502DA8687F00EAF77C /* TaskInfoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoInteractor.swift; sourceTree = "<group>"; };
 		44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfoPresenter.swift; sourceTree = "<group>"; };
@@ -58,8 +60,10 @@
 		44793E5A2DAC588E00EAF77C /* DBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBService.swift; sourceTree = "<group>"; };
 		44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		44793E602DAF73A300EAF77C /* DBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBModel.swift; sourceTree = "<group>"; };
+		44793E602DAF73A300EAF77C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		44793E622DAF745800EAF77C /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		44793E662DAFF50700EAF77C /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		44793E6A2DAFF75500EAF77C /* String+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +80,6 @@
 		44793E192DA6D23B00EAF77C = {
 			isa = PBXGroup;
 			children = (
-				44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */,
-				44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */,
 				44793E242DA6D23B00EAF77C /* EMTodoList */,
 				44793E232DA6D23B00EAF77C /* Products */,
 			);
@@ -99,10 +101,10 @@
 				44793E442DA7D9AB00EAF77C /* DI.swift */,
 				44793E652DAF74CC00EAF77C /* Network */,
 				44793E642DAF74BA00EAF77C /* DB */,
-				44793E412DA6FD5F00EAF77C /* TasksViewController */,
-				44793E4A2DA7DB8B00EAF77C /* Model.swift */,
+				44793E412DA6FD5F00EAF77C /* Controller */,
+				44793E562DA868DF00EAF77C /* Modules */,
+				44793E6C2DAFF76700EAF77C /* Extentions */,
 				44793E622DAF745800EAF77C /* Errors.swift */,
-				44793E562DA868DF00EAF77C /* TaskInfo */,
 				44793E2E2DA6D23F00EAF77C /* Assets.xcassets */,
 				44793E302DA6D23F00EAF77C /* LaunchScreen.storyboard */,
 				44793E332DA6D23F00EAF77C /* Info.plist */,
@@ -110,7 +112,7 @@
 			path = EMTodoList;
 			sourceTree = "<group>";
 		};
-		44793E412DA6FD5F00EAF77C /* TasksViewController */ = {
+		44793E412DA6FD5F00EAF77C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				44793E292DA6D23B00EAF77C /* TasksViewController.swift */,
@@ -120,10 +122,10 @@
 				44793E422DA6FE6B00EAF77C /* TasksBuilder.swift */,
 				44793E392DA6D89700EAF77C /* TaskCell.swift */,
 			);
-			path = TasksViewController;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		44793E562DA868DF00EAF77C /* TaskInfo */ = {
+		44793E562DA868DF00EAF77C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				44793E4E2DA867F900EAF77C /* TaskInfoViewController.swift */,
@@ -131,15 +133,17 @@
 				44793E522DA8688800EAF77C /* TaskInfoPresenter.swift */,
 				44793E542DA8689E00EAF77C /* TaskInfoBuilder.swift */,
 			);
-			path = TaskInfo;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		44793E642DAF74BA00EAF77C /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				44793E5C2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift */,
+				44793E5D2DAC591500EAF77C /* ToDoEntity+CoreDataProperties.swift */,
 				44793E572DAC573E00EAF77C /* ToDoModel.xcdatamodeld */,
 				44793E5A2DAC588E00EAF77C /* DBService.swift */,
-				44793E602DAF73A300EAF77C /* DBModel.swift */,
+				44793E692DAFF5B300EAF77C /* Model */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -149,8 +153,34 @@
 			children = (
 				44793E462DA7D9EE00EAF77C /* NetworkService.swift */,
 				44793E482DA7D9FA00EAF77C /* NetworkConfig.swift */,
+				44793E682DAFF53500EAF77C /* Model */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		44793E682DAFF53500EAF77C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44793E4A2DA7DB8B00EAF77C /* TodoResponse.swift */,
+				44793E662DAFF50700EAF77C /* TodoItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		44793E692DAFF5B300EAF77C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44793E602DAF73A300EAF77C /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		44793E6C2DAFF76700EAF77C /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				44793E6A2DAFF75500EAF77C /* String+UI.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,11 +257,13 @@
 				44793E492DA7D9FA00EAF77C /* NetworkConfig.swift in Sources */,
 				44793E5E2DAC591500EAF77C /* ToDoEntity+CoreDataClass.swift in Sources */,
 				44793E3E2DA6FD3900EAF77C /* TasksPresenter.swift in Sources */,
-				44793E4B2DA7DB8B00EAF77C /* Model.swift in Sources */,
+				44793E4B2DA7DB8B00EAF77C /* TodoResponse.swift in Sources */,
 				44793E5B2DAC588E00EAF77C /* DBService.swift in Sources */,
+				44793E672DAFF50700EAF77C /* TodoItem.swift in Sources */,
 				44793E472DA7D9EE00EAF77C /* NetworkService.swift in Sources */,
 				44793E512DA8687F00EAF77C /* TaskInfoInteractor.swift in Sources */,
-				44793E612DAF73A400EAF77C /* DBModel.swift in Sources */,
+				44793E612DAF73A400EAF77C /* Task.swift in Sources */,
+				44793E6B2DAFF75500EAF77C /* String+UI.swift in Sources */,
 				44793E552DA8689E00EAF77C /* TaskInfoBuilder.swift in Sources */,
 				44793E3A2DA6D89700EAF77C /* TaskCell.swift in Sources */,
 				44793E2A2DA6D23B00EAF77C /* TasksViewController.swift in Sources */,

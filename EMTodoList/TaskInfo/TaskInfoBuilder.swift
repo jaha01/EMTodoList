@@ -9,14 +9,13 @@ import UIKit
 
 final class TaskInfoBuilder {
     
-    func build(task: Task) -> UIViewController {
+    func build(task: Task, onClose: @escaping ((Task) -> Void)) -> UIViewController {
         let controller = TaskInfoViewController()
-        let interactor = TaskInfoInteractor()
+        let interactor = TaskInfoInteractor(task: task, onClose: onClose)
         let presenter = TaskInfoPresenter()
         
         controller.interactor = interactor
         interactor.presenter = presenter
-        interactor.task = task
         presenter.viewController = controller
         
         return controller

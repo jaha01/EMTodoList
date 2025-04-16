@@ -48,6 +48,14 @@ final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProt
          return textView
      }()
 
+    private let formatter: DateFormatter  = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy"
+        formatter.locale = .current
+        formatter.timeZone = .current
+        return formatter
+    }()
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          let backItem = UIBarButtonItem()
@@ -59,26 +67,27 @@ final class TaskInfoViewController: UIViewController, TaskInfoViewControllerProt
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         if self.isMovingFromParent {
-            print("!!! - \(getCurrentFormattedDate())")
+            interactor.onClose(title: titleTextField.text!, description: bodyTextView.text)
         }
     }
 
     // MARK: - Public methods
     
     func showTask(task: Task) {
-        titleTextField.text = ""
-        dateTextField.text = ""
+        titleTextField.text = task.title
+        dateTextField.text = formatDateToString(task.date)
         bodyTextView.text = task.taskDescription
     }
     
     // MARK: - Private methods
     
-    private func getCurrentFormattedDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy"
-        return formatter.string(from: Date())
+    private func formatDateToString(_ date: Date?) -> String {
+        if let safeDate = date {
+            return formatter.string(from: safeDate)
+        } else {
+            return ""
+        }
     }
     
      private func setupView() {

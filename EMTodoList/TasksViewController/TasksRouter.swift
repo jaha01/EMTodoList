@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol RouterProtocol {
-    func goToTaskInfo(task: Task)
+protocol TasksRouterProtocol {
+    func goToTaskInfo(task: Task, onClose: @escaping ((Task) -> Void) )
 }
 
-final class Router: RouterProtocol {
+final class TasksRouter: TasksRouterProtocol {
     
     // MARK: - Public properties
     
@@ -19,9 +19,9 @@ final class Router: RouterProtocol {
     
     // MARK: - Public properties
     
-    func goToTaskInfo(task: Task) {
+    func goToTaskInfo(task: Task, onClose: @escaping ((Task) -> Void)) {
         guard let controller = viewController else { return }
-        let taskVC = TaskInfoBuilder().build(task: task)
+        let taskVC = TaskInfoBuilder().build(task: task, onClose: onClose)
         controller.navigationController?.pushViewController(taskVC, animated: true)
     }
 }

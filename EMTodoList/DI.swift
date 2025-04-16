@@ -11,12 +11,12 @@ final class DI {
     
     static let shared = DI()
 
-    lazy var networkClient: NetworkManager = {
-        return NetworkManager()
+    lazy var networkClient: NetworkService = {
+        return NetworkService()
     }()
     
-    lazy var coreData: CoreDataManager = {
-        return CoreDataManager()
+    lazy var dBClient: DBService = {
+        return DBService()
     }()
     
 }
